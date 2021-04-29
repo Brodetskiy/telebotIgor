@@ -8,6 +8,11 @@ bot = telebot.TeleBot('1747166693:AAGitUlj7HndObBzAks4OerxwQAuMWJ_wIs');
 
 name = '';
 surname = '';
+father_name = '';
+number = 0;
+email = '';
+bank = '';
+position = '';
 age = 0;
 
 @bot.message_handler(content_types=['text'])
@@ -44,9 +49,49 @@ def get_name (message):
 def get_surn(message):
     global surname;
     surname = message.text;
-    bot.send_message(message.from_user.id, 'А скільки років ?');
-    bot.register_next_step_handler(message, get_age);
+    bot.send_message(message.from_user.id, 'По-батькові ?');
+    bot.register_next_step_handler(message, get_father_name);
 
+def get_father_name(message):
+    global father_name;
+    father_name = message.text;
+    bot.send_message(message.from_user.id, 'Назва фінансової установи ?');
+    bot.register_next_step_handler(message, get_bank_name);
+
+def get_bank_name(message):
+    global bank;
+    bank = message.text;
+    bot.send_message(message.from_user.id, 'Який номер телефону ?');
+    bot.register_next_step_handler(message, get_number);
+
+def get_number(message):
+    global number;
+    number = message.text;
+    bot.send_message(message.from_user.id, 'Яка ваша електронна пошта ?');
+    bot.register_next_step_handler(message, get_email);
+
+def get_email(message):
+    global email;
+    email = message.text;
+    bot.send_message(message.from_user.id, 'Яка ваша посада ?');
+    bot.register_next_step_handler(message, get_position);
+
+def get_position(message):
+    global position;
+    position = message.text;
+    #bot.send_message(message.from_user.id, 'Яка ваша посада ?');
+    keyboard = types.InlineKeyboardMarkup();
+    key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes');
+    keyboard.add(key_yes);
+    key_no = types.InlineKeyboardButton(text='Нет', callback_data='no');
+    keyboard.add(key_no);
+    question = 'Ви ' + name + ' ' + father_name + ' ' + surname + '. '+ '\nВаша електронна пошта: '+ email + '. \nВаш контактний номер: ' + str(number) + '. \nВаша установа: ' + bank + '. \nВаша посада: ' + position + ' ?';
+    # bot.send_message(message.from_user.id, 'Тобі ' + str(age) + ' років, тебе звуть ' + name + ' ' + surname + '?');
+    bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
+
+
+
+"""
 def get_age (message):
     global age;
     try:
@@ -63,12 +108,12 @@ def get_age (message):
     question = 'Тобі ' + str(age) + ' років, тебе звуть  ' + name + ' ' + surname + ' ?';
     #bot.send_message(message.from_user.id, 'Тобі ' + str(age) + ' років, тебе звуть ' + name + ' ' + surname + '?');
     bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
-
+"""
 @bot.callback_query_handler(func=lambda call: True)
 def callback_workers(call):
     if call.data == "yes":
         bot.send_message(call.message.chat.id, 'Запомню : )');
-        result = '\n' + str(call.message.from_user.id) + str(age) + '/' + name + '/' + surname ;
+        result = '\n' + str(call.message.from_user.id) + '/' + name + '/' + father_name + '/' + surname + '/'+ email + '/' + str(number) + '/' + bank + '/' + position ;
         #bot.send_message(call.message.chat.id, result);
         file = open('Database.txt', 'a');
         file.write(result);
