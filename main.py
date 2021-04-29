@@ -1,8 +1,7 @@
 import telebot;
 #import json;
 from telebot import types;
-#hello asldn
-#bot = telebot.TeleBot('1747166693:AAHmYjtrQ8M4LtmBU4jWFRDYgH6GMBcxv_A');
+
 
 bot = telebot.TeleBot('1747166693:AAGitUlj7HndObBzAks4OerxwQAuMWJ_wIs');
 
@@ -21,8 +20,15 @@ def start (message):
         bot.send_message(message.from_user.id, "/help - help \n/love - secret \n/reg - регістрація")
     elif message.text == "/love":
         bot.send_message(message.from_user.id, "А я буль мою Алінку")
+    elif message.text == "/file":
+        file_read()
     else:
         bot.send_message(message.from_user.id, 'Напиши /help');
+
+def file_read():
+    file = open('Database.txt', 'r')
+    text = file.read()
+    bot.send_message(message.from_user.id, text)
 
 def message_reg(message):
     bot.send_message(message.from_user.id, "Назви себе");
