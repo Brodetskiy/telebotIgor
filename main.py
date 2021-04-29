@@ -4,7 +4,7 @@ from telebot import types;
 #hello asldn
 #bot = telebot.TeleBot('1747166693:AAHmYjtrQ8M4LtmBU4jWFRDYgH6GMBcxv_A');
 
-bot = telebot.TeleBot('token');
+bot = telebot.TeleBot('1747166693:AAGitUlj7HndObBzAks4OerxwQAuMWJ_wIs');
 
 
 name = '';
