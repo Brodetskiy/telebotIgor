@@ -21,11 +21,11 @@ def start (message):
     elif message.text == "/love":
         bot.send_message(message.from_user.id, "А я буль мою Алінку")
     elif message.text == "/file":
-        file_read()
+        file_read(message)
     else:
         bot.send_message(message.from_user.id, 'Напиши /help');
 
-def file_read():
+def file_read(message):
     file = open('Database.txt', 'r')
     text = file.read()
     bot.send_message(message.from_user.id, text)
