@@ -120,6 +120,7 @@ def callback_workers(call):
         file.close();
     elif call.data == "no":
         bot.send_message(call.message.chat.id, 'Ну ладно : )');
+        #return (message_reg(call.message));
 
 bot.polling(none_stop=True, interval=0)
 
