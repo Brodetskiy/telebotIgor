@@ -21,9 +21,10 @@ def start (message):
         message_reg(message)
     elif message.text == "/start":
         bot.send_message(message.from_user.id, "Привіт, чим можу бути корисний?")
+        #bot.send_message(message.from_user.id, message)
     elif message.text == "/help":
         bot.send_message(message.from_user.id, "/help - help \n/love - secret \n/reg - регістрація")
-    elif message.text == "/love":
+    elif message.text == "/love" and message.from_user.username == "Forewer_Dreamer":
         bot.send_message(message.from_user.id, "А я буль мою Алінку")
     elif message.text == "/file":
         file_read(message)
