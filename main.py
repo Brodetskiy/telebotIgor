@@ -18,6 +18,14 @@ bank = '';
 position = '';
 age = 0;
 
+namePerfomens = '';
+dateStart = 0;
+dateFinish = 0;
+timeStart = '';
+timeFinish = '';
+price = 0;
+plase = '';
+
 @bot.message_handler(content_types=['text'])
 def start (message):
     if message.text =='/reg':
@@ -27,12 +35,60 @@ def start (message):
         #bot.send_message(message.from_user.id, message)
     elif message.text == "/help":
         bot.send_message(message.from_user.id, "/help - help \n/love - secret \n/reg - регістрація")
+    elif message.text == "/party_reg":
+        create_perfomens(message)
     elif message.text == "/love" and message.from_user.username == "Forewer_Dreamer":
         bot.send_message(message.from_user.id, "А я буль мою Алінку")
     elif message.text == "/file":
         file_read(message)
     else:
         bot.send_message(message.from_user.id, 'Напиши /help');
+
+def create_perfomens (message):
+    bot.send_message(message.from_user.id, "Яка назва заходу ?");
+    bot.register_next_step_handler(message, get_namePerfomens);
+
+def get_namePerfomens (message):
+    global namePerfomens;
+    namePerfomens = message.text;
+    bot.send_message(message.from_user.id, "День старту ?");
+    bot.register_next_step_handler(message, get_dateStart);
+
+def get_dateStart(message):
+    global dateStart;
+    dateStart = message.text;
+    bot.send_message(message.from_user.id, "День закінчення ?");
+    bot.register_next_step_handler(message, get_dateFinish);
+
+def get_dateFinish(message):
+    global dateFinish;
+    dateFinish = message.text;
+    bot.send_message(message.from_user.id, "Час початку?");
+    bot.register_next_step_handler(message, get_timeStart);
+
+def get_timeStart(message):
+    global timeStart;
+    timeStart = message.text;
+    bot.send_message(message.from_user.id, "Час закінчення?");
+    bot.register_next_step_handler(message, get_timeFinish);
+
+def get_timeFinish(message):
+    global timeFinish;
+    timeFinish = message.text;
+    bot.send_message(message.from_user.id, "Місце провдення");
+    bot.register_next_step_handler(message, get_plase);
+
+def get_plase(message):
+    global plase;
+    plase = message.text;
+    bot.send_message(message.from_user.id, "Вартість");
+    bot.register_next_step_handler(message, get_price);
+
+def get_price(message):
+    global price;
+    price = message.text;
+    bot.send_message(message.from_user.id, "Вартість");
+    bot.register_next_step_handler(message, get_price);
 
 def file_read(message):
     file = open('Database.txt', 'r')
@@ -42,7 +98,7 @@ def file_read(message):
 def message_reg(message):
     bot.send_message(message.from_user.id, "Назви себе");
     bot.register_next_step_handler(message, get_name);
-    #bot.send_message(message.from_user.id, message);
+
 def get_name (message):
     global name;
     name = message.text;
