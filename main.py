@@ -2,10 +2,10 @@ import telebot;
 from telebot import types;
 import psycopg2
 
-conn = psycopg2.connect(dbname = 'dbispm8nckp4m3',
-                        user = 'swujabhtpberxw',
-                        password = '68734231f74e3f60549c290177450ed522382ccb7da724338b1cb307a97d1dfe',
-                        host = 'ec2-176-34-222-188.eu-west-1.compute.amazonaws.com')
+conn = psycopg2.connect(dbname = 'd8tncqed87t359',
+                        user = 'tbnyxuesgdxqot',
+                        password = '799194cd52092203250cb2e9825d50ab772bbd23b72bcb6cfb6d0adf4538ea27',
+                        host = 'ec2-108-128-104-50.eu-west-1.compute.amazonaws.com')
 cursor = conn.cursor()
 var = 'call other.useRegistration('
 
@@ -128,9 +128,9 @@ def callback_workers(call):
         conn.commit()
 
         #bot.send_message(call.message.chat.id, result);
-        file = open('Database.txt', 'a');
-        file.write(result);
-        file.close();
+        #file = open('Database.txt', 'a');
+        #file.write(result);
+        #file.close();
     elif call.data == "no":
         bot.send_message(call.message.chat.id, 'Ну ладно : )');
         #return (message_reg(call.message));
