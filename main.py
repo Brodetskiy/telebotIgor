@@ -1,11 +1,11 @@
 import telebot;
 from telebot import types;
-import psycopg2
+"""import psycopg2
 conn = psycopg2.connect(dbname = 'igordb', user = 'postgres',
                         password = 'igor250398', host = '192.168.0.103')
 cursor = conn.cursor()
 var = 'call other.useRegistration('
-
+"""
 bot = telebot.TeleBot('1747166693:AAGitUlj7HndObBzAks4OerxwQAuMWJ_wIs');
 res = '';
 
@@ -92,7 +92,7 @@ def get_position(message):
     question = 'Ви ' + name + ' ' + father_name + ' ' + surname + '. '+ '\nВаша електронна пошта: '+ email + '. \nВаш контактний номер: ' + str(number) + '. \nВаша установа: ' + bank + '. \nВаша посада: ' + position + ' ?';
     # bot.send_message(message.from_user.id, 'Тобі ' + str(age) + ' років, тебе звуть ' + name + ' ' + surname + '?');
     global res;
-    res = (var + '\'' + name + '\'' + ',' + '\'' + father_name + '\'' + ',' + '\'' + surname + '\'' + ','  + str(number)   + ',' + '\'' +  email + '\'' + ',' + '\'' + bank + '\'' + ',' + '\'' + position + '\'' + ')');
+    #res = (var + '\'' + name + '\'' + ',' + '\'' + father_name + '\'' + ',' + '\'' + surname + '\'' + ','  + str(number)   + ',' + '\'' +  email + '\'' + ',' + '\'' + bank + '\'' + ',' + '\'' + position + '\'' + ')');
     bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
 
 
@@ -120,14 +120,15 @@ def callback_workers(call):
     if call.data == "yes":
         bot.send_message(call.message.chat.id, 'Запомню : )');
         result = '\n' + str(call.message.from_user.id) + '/' + name + '/' + father_name + '/' + surname + '/'+ email + '/' + str(number) + '/' + bank + '/' + position ;
-        bot.send_message(call.message.chat.id, res);
-        cursor.execute(res)
+        #bot.send_message(call.message.chat.id, res);
+        """cursor.execute(res)
         conn.commit()
-
+"""
         #bot.send_message(call.message.chat.id, result);
         file = open('Database.txt', 'a');
         file.write(result);
         file.close();
+        bot.send_message(call.message.chat.id, result)
     elif call.data == "no":
         bot.send_message(call.message.chat.id, 'Ну ладно : )');
         #return (message_reg(call.message));
@@ -136,10 +137,10 @@ def callback_workers(call):
 
 bot.polling(none_stop=True, interval=0)
 
-
+"""
 cursor.close()
 conn.close()
-
+"""
 
 
 
